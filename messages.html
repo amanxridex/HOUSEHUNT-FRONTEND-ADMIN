@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Tickets | HouseHunt Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">House<span>Hunt</span> Admin</div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="properties.html" class="nav-item"><i data-lucide="building"></i> Properties</a>
+                <a href="users.html" class="nav-item"><i data-lucide="users"></i> Users</a>
+                <a href="analytics.html" class="nav-item"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="messages.html" class="nav-item active"><i data-lucide="message-square"></i> Support</a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer"><p>© 2026 HouseHunt v1.0</p></div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="support-container">
+                <!-- Inbox Sidebar -->
+                <div class="inbox-list">
+                    <div class="inbox-header">
+                        <h2>Support Tickets</h2>
+                        <i data-lucide="edit"></i>
+                    </div>
+                    <div class="ticket-item active">
+                        <div class="ticket-info">
+                            <h4>Issue with payment</h4>
+                            <p>From: Rahul S. • #TK-102</p>
+                        </div>
+                        <span class="ticket-status open"></span>
+                    </div>
+                    <div class="ticket-item">
+                        <div class="ticket-info">
+                            <h4>Property not listing</h4>
+                            <p>From: Priya K. • #TK-105</p>
+                        </div>
+                        <span class="ticket-status closed"></span>
+                    </div>
+                </div>
+
+                <!-- Chat Area -->
+                <div class="chat-viewport">
+                    <div class="chat-header">
+                        <div class="user-meta">
+                            <img src="assets/profile.png" alt="User">
+                            <div>
+                                <h4>Rahul Sharma</h4>
+                                <span>Ticket #TK-102 • Payment Issue</span>
+                            </div>
+                        </div>
+                        <button class="resolve-btn">Resolve Ticket</button>
+                    </div>
+                    <div class="chat-messages">
+                        <div class="msg received">Hi, I paid for the premium listing but it's not showing active.</div>
+                        <div class="msg sent">Hello Rahul, let me check the transaction ID for you.</div>
+                    </div>
+                    <div class="chat-input">
+                        <input type="text" placeholder="Type your response here...">
+                        <button class="send-btn"><i data-lucide="send"></i></button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

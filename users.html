@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Users | HouseHunt Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">House<span>Hunt</span> Admin</div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="properties.html" class="nav-item"><i data-lucide="building"></i> Properties</a>
+                <a href="users.html" class="nav-item active"><i data-lucide="users"></i> Users</a>
+                <a href="analytics.html" class="nav-item"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i> Support</a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer"><p>© 2026 HouseHunt v1.0</p></div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search by name, email, or role...">
+                </div>
+                <div class="user-profile">
+                    <img src="assets/profile.png" alt="Admin">
+                    <div class="admin-info"><strong>Aman Mishra</strong><span>Super Admin</span></div>
+                </div>
+            </header>
+
+            <div class="page-header">
+                <h1>User Management</h1>
+                <div class="header-actions">
+                    <button class="add-btn"><i data-lucide="user-plus"></i> Invite Admin</button>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Role</th>
+                            <th>Email</th>
+                            <th>Join Date</th>
+                            <th>Listings</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="user-td"><img src="assets/profile.png"> Rahul Sharma</td>
+                            <td><span class="role-badge seller">Seller</span></td>
+                            <td>rahul@example.com</td>
+                            <td>Oct 12, 2023</td>
+                            <td>12</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td class="actions-td">
+                                <button class="act-btn edit"><i data-lucide="edit-3"></i></button>
+                                <button class="act-btn delete"><i data-lucide="slash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="user-td"><img src="assets/profile.png"> Priya Singh</td>
+                            <td><span class="role-badge buyer">Buyer</span></td>
+                            <td>priya@example.com</td>
+                            <td>Nov 05, 2023</td>
+                            <td>0</td>
+                            <td><span class="badge active">Active</span></td>
+                            <td class="actions-td">
+                                <button class="act-btn edit"><i data-lucide="edit-3"></i></button>
+                                <button class="act-btn delete"><i data-lucide="slash"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="user-td"><img src="assets/profile.png"> Vikram Mehra</td>
+                            <td><span class="role-badge seller">Seller</span></td>
+                            <td>vikram@example.com</td>
+                            <td>Jan 20, 2024</td>
+                            <td>45</td>
+                            <td><span class="badge idle">Suspended</span></td>
+                            <td class="actions-td">
+                                <button class="act-btn edit"><i data-lucide="edit-3"></i></button>
+                                <button class="act-btn approve"><i data-lucide="unlock"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

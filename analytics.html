@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platform Analytics | HouseHunt Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">House<span>Hunt</span> Admin</div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="properties.html" class="nav-item"><i data-lucide="building"></i> Properties</a>
+                <a href="users.html" class="nav-item"><i data-lucide="users"></i> Users</a>
+                <a href="analytics.html" class="nav-item active"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i> Support</a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer"><p>© 2026 HouseHunt v1.0</p></div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search analytics data...">
+                </div>
+                <div class="user-profile">
+                    <img src="assets/profile.png" alt="Admin">
+                    <div class="admin-info"><strong>Aman Mishra</strong><span>Super Admin</span></div>
+                </div>
+            </header>
+
+            <div class="page-header">
+                <h1>Platform Analytics</h1>
+                <div class="header-actions">
+                    <button class="filter-btn-admin">Export Report <i data-lucide="download"></i></button>
+                </div>
+            </div>
+
+            <!-- Analytics Grid -->
+            <div class="charts-grid-analytics">
+                <div class="chart-card">
+                    <h3>User Growth</h3>
+                    <canvas id="userGrowthChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Property Types Distribution</h3>
+                    <canvas id="propertyTypeChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Revenue Stream (monthly)</h3>
+                    <canvas id="revenueChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Lead Conversion Ratio</h3>
+                    <canvas id="conversionChart"></canvas>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/analytics.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
