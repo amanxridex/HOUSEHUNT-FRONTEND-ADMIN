@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Platform Analytics | HouseHunt Admin</title>
     <link rel="stylesheet" href="css/admin.css">
+    <script src="js/auth.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -21,7 +22,10 @@
                 <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i> Support</a>
                 <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
             </nav>
-            <div class="sidebar-footer"><p>© 2026 HouseHunt v1.0</p></div>
+            <div class="sidebar-footer">
+                <a href="#" onclick="adminLogout()" class="nav-item logout-link" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #ef4444;"><i data-lucide="log-out"></i> Logout</a>
+                <p>© 2026 HouseHunt v1.0</p>
+            </div>
         </aside>
 
         <!-- Main Content -->
