@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | HouseHunt</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                House<span>Hunt</span> Admin
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item active"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="properties.html" class="nav-item"><i data-lucide="building"></i> Properties</a>
+                <a href="users.html" class="nav-item"><i data-lucide="users"></i> Users</a>
+                <a href="analytics.html" class="nav-item"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i> Support</a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <p>© 2026 HouseHunt v1.0</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search for properties, users, transactions...">
+                </div>
+                <div class="user-profile">
+                    <div class="notif"><i data-lucide="bell"></i><span class="badge"></span></div>
+                    <img src="assets/profile.png" alt="Admin">
+                    <div class="admin-info">
+                        <strong>Aman Mishra</strong>
+                        <span>Super Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="page-header">
+                <h1>Dashboard Overview</h1>
+                <div class="date-picker">Last 30 Days <i data-lucide="calendar"></i></div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon blue"><i data-lucide="home"></i></div>
+                    <div class="stat-info">
+                        <p>Total Properties</p>
+                        <h3>1,284</h3>
+                        <span class="trend up">+12.5%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green"><i data-lucide="user-plus"></i></div>
+                    <div class="stat-info">
+                        <p>New Users Today</p>
+                        <h3>42</h3>
+                        <span class="trend up">+5.2%</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon purple"><i data-lucide="check-circle"></i></div>
+                    <div class="stat-info">
+                        <p>Pending Approvals</p>
+                        <h3>18</h3>
+                        <span class="status-badge alert">High Priority</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange"><i data-lucide="dollar-sign"></i></div>
+                    <div class="stat-info">
+                        <p>Total Revenue</p>
+                        <h3>₹ 45.8L</h3>
+                        <span class="trend up">+8.1%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-row">
+                <div class="chart-container large">
+                    <div class="chart-header">
+                        <h3>Property Growth</h3>
+                        <div class="chart-actions">
+                            <span>Residential</span>
+                            <span>Commercial</span>
+                        </div>
+                    </div>
+                    <canvas id="growthChart"></canvas>
+                </div>
+                <div class="activity-container">
+                    <h3>Recent Properties</h3>
+                    <div class="activity-list" id="recentProperties">
+                        <!-- Dynamic list will be populated by JS -->
+                    </div>
+                    <a href="properties.html" class="view-all">View All Properties</a>
+                </div>
+            </div>
+
+            <!-- Table Section -->
+            <div class="table-section">
+                <div class="table-header">
+                    <h3>Top Performing Agents</h3>
+                </div>
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Agent</th>
+                            <th>Properties</th>
+                            <th>Total Revenue</th>
+                            <th>Rating</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="user-td"><img src="assets/profile.png"> Rahul Sharma</td>
+                            <td>45</td>
+                            <td>₹ 8.2L</td>
+                            <td>4.8 ⭐</td>
+                            <td><span class="badge active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td class="user-td"><img src="assets/profile.png"> Priya Singh</td>
+                            <td>38</td>
+                            <td>₹ 6.5L</td>
+                            <td>4.9 ⭐</td>
+                            <td><span class="badge active">Active</span></td>
+                        </tr>
+                        <tr>
+                            <td class="user-td"><img src="assets/profile.png"> Sameer Khan</td>
+                            <td>22</td>
+                            <td>₹ 4.1L</td>
+                            <td>4.5 ⭐</td>
+                            <td><span class="badge idle">Idle</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/admin.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
