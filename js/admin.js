@@ -1,4 +1,22 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    const BACKEND_URL = 'https://househunt-backend-h19r.onrender.com';
+
+    // Fetch Stats from Backend
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/admin/analytics`);
+        const stats = await response.json();
+        
+        if (stats) {
+            const statCards = document.querySelectorAll('.stat-info');
+            statCards[0].querySelector('h3').innerText = stats.totalProperties.toLocaleString();
+            statCards[1].querySelector('h3').innerText = stats.totalUsers.toLocaleString();
+            statCards[2].querySelector('h3').innerText = stats.newUsersToday.toLocaleString();
+            statCards[3].querySelector('h3').innerText = stats.revenue;
+        }
+    } catch (e) {
+        console.warn("Could not fetch live stats, using defaults.", e);
+    }
+
     // Growth Chart
     const ctx = document.getElementById('growthChart');
     if (ctx) {
