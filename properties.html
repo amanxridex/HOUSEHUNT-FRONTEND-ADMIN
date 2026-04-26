@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Properties | HouseHunt Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">House<span>Hunt</span> Admin</div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="properties.html" class="nav-item active"><i data-lucide="building"></i> Properties</a>
+                <a href="users.html" class="nav-item"><i data-lucide="users"></i> Users</a>
+                <a href="analytics.html" class="nav-item"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i> Support</a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer"><p>© 2026 HouseHunt v1.0</p></div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="search-box">
+                    <i data-lucide="search"></i>
+                    <input type="text" placeholder="Search by ID, Address, or Owner...">
+                </div>
+                <div class="user-profile">
+                    <img src="assets/profile.png" alt="Admin">
+                    <div class="admin-info"><strong>Aman Mishra</strong><span>Super Admin</span></div>
+                </div>
+            </header>
+
+            <div class="page-header">
+                <h1>Property Listings</h1>
+                <div class="header-actions">
+                    <button class="filter-btn-admin"><i data-lucide="filter"></i> Filters</button>
+                    <button class="add-btn"><i data-lucide="plus"></i> Add New Property</button>
+                </div>
+            </div>
+
+            <div class="table-section">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Property</th>
+                            <th>ID</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                            <th>Owner</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="propertyTableBody">
+                        <!-- Dynamic rows -->
+                        <tr>
+                            <td class="prop-td">
+                                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=80&q=80">
+                                <div><strong>Modern Luxury Villa</strong><span>Residential</span></div>
+                            </td>
+                            <td>#HH-9821</td>
+                            <td>Sector 150, Noida</td>
+                            <td>₹ 4.5 Cr</td>
+                            <td>Rahul S.</td>
+                            <td><span class="badge active">Live</span></td>
+                            <td class="actions-td">
+                                <button class="act-btn edit"><i data-lucide="edit-3"></i></button>
+                                <button class="act-btn delete"><i data-lucide="trash-2"></i></button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="prop-td">
+                                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=80&q=80">
+                                <div><strong>Sky Office Plaza</strong><span>Commercial</span></div>
+                            </td>
+                            <td>#HH-7721</td>
+                            <td>Cyber City, GGN</td>
+                            <td>₹ 12.0 Cr</td>
+                            <td>Prestige Group</td>
+                            <td><span class="badge pending">Pending</span></td>
+                            <td class="actions-td">
+                                <button class="act-btn approve"><i data-lucide="check"></i></button>
+                                <button class="act-btn delete"><i data-lucide="trash-2"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
