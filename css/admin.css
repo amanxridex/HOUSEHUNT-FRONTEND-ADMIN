@@ -32,8 +32,17 @@ body { background: var(--bg-main); color: var(--text-main); }
     height: 100vh;
 }
 
-.logo { font-size: 22px; font-weight: 800; margin-bottom: 40px; }
+.logo { font-size: 22px; font-weight: 800; margin-bottom: 30px; line-height: 1; }
 .logo span { color: var(--primary); }
+.logo-subtitle { 
+    display: block; 
+    font-size: 10px; 
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    color: var(--text-muted); 
+    margin-top: 6px; 
+    font-weight: 700;
+}
 
 .nav-menu { flex: 1; }
 .nav-item {
