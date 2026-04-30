@@ -99,6 +99,66 @@
         </main>
     </div>
 
+    <!-- Details Modal -->
+    <div id="detailsModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Property Details</h2>
+                <button onclick="closeModal()" class="close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-images" id="modalImages">
+                    <!-- Images will go here -->
+                </div>
+                <div class="modal-info-grid" id="modalInfo">
+                    <!-- Info will go here -->
+                </div>
+            </div>
+            <div class="modal-footer" id="modalFooter">
+                <!-- Action buttons will go here -->
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .modal-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+        .modal-images { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .modal-images img { width: 100%; height: 120px; object-fit: cover; border-radius: 10px; border: 1px solid #eee; cursor: pointer; }
+        .modal-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .info-item { background: #f9f9f9; padding: 12px; border-radius: 10px; }
+        .info-item label { display: block; font-size: 11px; color: #666; text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+        .info-item span { font-size: 14px; font-weight: 600; color: #111; }
+        .modal-footer { padding: 20px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 10px; }
+        .modal-btn { padding: 10px 20px; border-radius: 10px; border: none; font-weight: 700; cursor: pointer; }
+        .modal-btn.approve { background: #22c55e; color: white; }
+        .modal-btn.reject { background: #ef4444; color: white; }
+        .modal-btn.close { background: #666; color: white; }
+    </style>
+
     <script src="js/properties.js"></script>
     <script>
         lucide.createIcons();
