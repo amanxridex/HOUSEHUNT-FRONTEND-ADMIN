@@ -192,6 +192,7 @@ body { background: var(--bg-main); color: var(--text-main); }
 .role-badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
 .role-badge.seller { background: #F5F3FF; color: #7C3AED; }
 .role-badge.buyer { background: #EFF6FF; color: #2563EB; }
+.role-badge.admin { background: #FFFBEB; color: #D97706; }
 
 /* Analytics Grid */
 .charts-grid-analytics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
