@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </td>
                 <td><span class="role-badge ${user.role || 'buyer'}">${user.role ? user.role.charAt(0).toUpperCase() + user.role.slice(1) : 'Buyer'}</span></td>
                 <td>${user.email}</td>
+                <td>${user.phone || 'Not Added'}</td>
                 <td>${joinDate}</td>
                 <td>-</td>
                 <td><span class="badge active">Active</span></td>
