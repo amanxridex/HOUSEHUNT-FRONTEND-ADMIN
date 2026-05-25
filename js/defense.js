@@ -1,61 +1,83 @@
-document.addEventListener('DOMContentLoaded', async () => {
-    const BACKEND_URL = 'https://backend.househunt.live';
-    const tbody = document.getElementById('logsTableBody');
+let currentTab = 'all';
 
+function setLogTab(tab) {
+    currentTab = tab;
+    // Update button styles
+    document.getElementById('tabAll').style.color = tab === 'all' ? '#10b981' : '#6b7280';
+    document.getElementById('tabAll').style.borderColor = tab === 'all' ? '#10b981' : '#374151';
+    
+    document.getElementById('tabErrors').style.color = tab === 'errors' ? '#ef4444' : '#6b7280';
+    document.getElementById('tabErrors').style.borderColor = tab === 'errors' ? '#ef4444' : '#374151';
+    
+    // Trigger immediate render
+    fetchAndRenderLogs();
+}
+
+async function fetchAndRenderLogs() {
+    const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:5000' : 'https://backend.househunt.live';
+    
     try {
         const response = await fetch(`${BACKEND_URL}/api/admin/defense-logs`);
         if (!response.ok) throw new Error('Failed to fetch logs');
         
-        const logs = await response.json();
+        let logs = await response.json();
         
+        // Calculate counts
+        let passed = 0;
+        let errors = 0;
+        logs.forEach(log => {
+            if (log.status >= 400) errors++;
+            else passed++;
+        });
+
+        document.getElementById('passedCount').textContent = passed;
+        document.getElementById('errorCount').textContent = errors;
+
+        // Filter based on tab
+        if (currentTab === 'errors') {
+            logs = logs.filter(l => l.status >= 400);
+        }
+
+        const terminalBody = document.getElementById('terminalBody');
+        terminalBody.innerHTML = ''; // Clear
+
         if (logs.length === 0) {
-            tbody.innerHTML = `
-                <tr>
-                    <td colspan="5" style="text-align: center; padding: 40px; color: #10b981;">
-                        <i data-lucide="shield-check" style="width: 48px; height: 48px; margin-bottom: 10px;"></i>
-                        <br><strong>No Intrusions Detected</strong>
-                        <p style="margin-top: 5px; font-size: 0.85rem;">Your perimeter is secure.</p>
-                    </td>
-                </tr>
-            `;
-            lucide.createIcons();
+            terminalBody.innerHTML = '<div style="color: #6b7280;">No logs found for current filter...</div>';
             return;
         }
 
-        tbody.innerHTML = '';
-        
         logs.forEach(log => {
-            const tr = document.createElement('tr');
-            
-            // Format timestamp
             const date = new Date(log.timestamp);
-            const formattedDate = date.toISOString().replace('T', ' ').substring(0, 19);
-            
-            // Truncate user agent
-            const ua = log.user_agent.length > 50 ? log.user_agent.substring(0, 47) + '...' : log.user_agent;
+            const timeStr = date.toISOString().replace('T', ' ').substring(0, 19);
+            const isError = log.status >= 400;
+            const color = isError ? '#ef4444' : '#10b981';
+            const statusLabel = isError ? '[ERR]' : '[OK] ';
 
-            tr.innerHTML = `
-                <td style="color: #6b7280;">${formattedDate}</td>
-                <td><span class="ip-address">${log.ip_address}</span></td>
-                <td><code style="background: #f3f4f6; padding: 2px 6px; border-radius: 4px; color: #d97706;">${log.method} ${log.endpoint}</code></td>
-                <td title="${log.user_agent}" style="color: #4b5563;">${ua}</td>
-                <td><span class="badge-blocked"><i data-lucide="ban" style="width: 12px; height: 12px;"></i> BLOCKED</span></td>
+            const line = document.createElement('div');
+            line.style.display = 'flex';
+            line.style.gap = '15px';
+            line.style.padding = '2px 0';
+            line.style.borderBottom = '1px dashed #333';
+            
+            line.innerHTML = `
+                <span style="color: #6b7280; min-width: 170px;">${timeStr}</span>
+                <span style="color: ${color}; font-weight: bold; min-width: 50px;">${statusLabel}</span>
+                <span style="color: #fbbf24; min-width: 40px;">${log.status}</span>
+                <span style="color: #60a5fa; min-width: 60px;">${log.method}</span>
+                <span style="color: #e5e7eb; flex: 1; word-break: break-all;">${log.endpoint}</span>
+                <span style="color: #9ca3af; min-width: 120px; text-align: right;">${log.ip_address}</span>
+                <span style="color: #4b5563; min-width: 60px; text-align: right;">${log.duration}ms</span>
             `;
-            tbody.appendChild(tr);
+            terminalBody.appendChild(line);
         });
-        
-        lucide.createIcons();
+
     } catch (err) {
-        console.error('Error fetching security logs:', err);
-        tbody.innerHTML = `
-            <tr>
-                <td colspan="5" style="text-align: center; padding: 40px; color: #ef4444;">
-                    <i data-lucide="alert-triangle" style="width: 48px; height: 48px; margin-bottom: 10px;"></i>
-                    <br><strong>Error Loading Logs</strong>
-                    <p style="margin-top: 5px; font-size: 0.85rem;">${err.message}</p>
-                </td>
-            </tr>
-        `;
-        lucide.createIcons();
+        console.error('Terminal polling error:', err);
     }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetchAndRenderLogs();
+    // Poll every 2 seconds for real-time feel
+    setInterval(fetchAndRenderLogs, 2000);
 });

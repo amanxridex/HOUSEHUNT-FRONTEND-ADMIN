@@ -94,33 +94,37 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="defense-layout">
-                <div class="threat-header">
-                    <i data-lucide="shield-alert" style="width: 48px; height: 48px;"></i>
-                    <div>
-                        <h2>Security Operations Center</h2>
-                        <p style="margin: 5px 0 0; color: #9ca3af; font-size: 0.9rem;">Monitoring unauthorized access attempts, rate-limit violations, and scraping activity.</p>
+                <div class="threat-header" style="justify-content: space-between; align-items: flex-start;">
+                    <div style="display: flex; gap: 15px; align-items: center;">
+                        <i data-lucide="terminal" style="width: 48px; height: 48px; color: #10b981;"></i>
+                        <div>
+                            <h2>Real-Time Operations Terminal</h2>
+                            <p style="margin: 5px 0 0; color: #9ca3af; font-size: 0.9rem;">Live streaming of application logs across all users and endpoints.</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 20px;">
+                        <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); padding: 10px 20px; border-radius: 8px; text-align: center;">
+                            <div style="color: #10b981; font-size: 1.5rem; font-weight: bold;" id="passedCount">0</div>
+                            <div style="color: #6ee7b7; font-size: 0.75rem; text-transform: uppercase; font-weight: 600;">Passed</div>
+                        </div>
+                        <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); padding: 10px 20px; border-radius: 8px; text-align: center;">
+                            <div style="color: #ef4444; font-size: 1.5rem; font-weight: bold;" id="errorCount">0</div>
+                            <div style="color: #fca5a5; font-size: 0.75rem; text-transform: uppercase; font-weight: 600;">Errors</div>
+                        </div>
                     </div>
                 </div>
 
-                <table class="threat-table">
-                    <thead>
-                        <tr>
-                            <th>Timestamp (UTC)</th>
-                            <th>IP Address</th>
-                            <th>Target Endpoint</th>
-                            <th>User Agent</th>
-                            <th>Action Taken</th>
-                        </tr>
-                    </thead>
-                    <tbody id="logsTableBody">
-                        <tr>
-                            <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
-                                <i data-lucide="loader" class="spin" style="margin-bottom: 10px;"></i>
-                                <br>Loading security logs...
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="terminal-controls" style="margin-bottom: 10px; display: flex; gap: 10px;">
+                    <button id="tabAll" onclick="setLogTab('all')" style="background: #111827; color: #10b981; border: 1px solid #10b981; padding: 8px 16px; border-radius: 4px; font-weight: 600; cursor: pointer;">All / Passed</button>
+                    <button id="tabErrors" onclick="setLogTab('errors')" style="background: #111827; color: #6b7280; border: 1px solid #374151; padding: 8px 16px; border-radius: 4px; font-weight: 600; cursor: pointer;">Errors Only</button>
+                </div>
+
+                <div class="terminal-window" style="background: #000; border-radius: 8px; padding: 20px; font-family: 'Courier New', Courier, monospace; color: #10b981; height: 600px; overflow-y: auto; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);">
+                    <div id="terminalBody" style="display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem;">
+                        <div style="color: #6b7280;">Connecting to server log stream...</div>
+                        <div style="color: #6b7280;">Awaiting incoming requests...</div>
+                    </div>
+                </div>
             </div>
         </main>
     </div>
