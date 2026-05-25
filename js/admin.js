@@ -8,10 +8,10 @@ document.addEventListener('DOMContentLoaded', async () => {
         
         if (stats) {
             const statCards = document.querySelectorAll('.stat-info');
-            statCards[0].querySelector('h3').innerText = stats.totalProperties.toLocaleString();
-            statCards[1].querySelector('h3').innerText = stats.totalUsers.toLocaleString();
-            statCards[2].querySelector('h3').innerText = stats.newUsersToday.toLocaleString();
-            statCards[3].querySelector('h3').innerText = stats.revenue;
+            statCards[0].querySelector('h3').innerText = (stats.totalProperties || 0).toLocaleString();
+            statCards[1].querySelector('h3').innerText = (stats.totalUsers || 0).toLocaleString();
+            statCards[2].querySelector('h3').innerText = (stats.pendingApprovals || 0).toLocaleString();
+            statCards[3].querySelector('h3').innerText = stats.revenue || '₹ 0';
         }
     } catch (e) {
         console.warn("Could not fetch live stats, using defaults.", e);
