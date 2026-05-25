@@ -37,10 +37,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             
             const isOpen = ticket.status !== 'resolved';
             
+            const displayName = ticket.profiles ? (ticket.profiles.full_name || ticket.profiles.email || 'User') : 'Guest';
             item.innerHTML = `
                 <div class="ticket-info">
                     <h4 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;">${ticket.issue_text}</h4>
-                    <p>User: ${ticket.user_id ? ticket.user_id.substring(0,6) + '...' : 'Guest'} • ${ticket.ticket_id}</p>
+                    <p>User: ${displayName} • ${ticket.ticket_id}</p>
                 </div>
                 <span class="ticket-status ${isOpen ? 'open' : 'closed'}"></span>
             `;
@@ -61,18 +62,33 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (chatInterval) clearInterval(chatInterval);
         const isOpen = ticket.status !== 'resolved';
         
+        const displayName = ticket.profiles ? (ticket.profiles.full_name || ticket.profiles.email || 'User') : 'Guest';
+        const displayInitials = ticket.profiles ? (ticket.profiles.full_name ? ticket.profiles.full_name.substring(0,2).toUpperCase() : ticket.profiles.email.substring(0,2).toUpperCase()) : 'G';
+        
+        let resolvedHtml = `<div style="display:flex; flex-direction:column; align-items:flex-end;"><span style="color:#10b981; font-weight:600;"><i data-lucide="check-circle" style="vertical-align: middle; width:18px;"></i> Resolved</span>`;
+        if (ticket.rating) {
+            resolvedHtml += `<div style="margin-top: 5px; display:flex; color: #eab308;">`;
+            for (let i = 0; i < ticket.rating; i++) {
+                resolvedHtml += `<i data-lucide="star" style="width: 14px; fill: #eab308; margin-right: 2px;"></i>`;
+            }
+            resolvedHtml += `</div>`;
+        }
+        resolvedHtml += `</div>`;
+
         chatViewport.innerHTML = `
             <div class="chat-header">
                 <div class="user-meta">
                     <div style="width:40px; height:40px; border-radius:50%; background:#e0e7ff; display:flex; align-items:center; justify-content:center; color:#4f46e5; font-weight:700;">
-                        ${ticket.user_id ? ticket.user_id.substring(0,2).toUpperCase() : 'G'}
+                        ${displayInitials}
                     </div>
                     <div>
-                        <h4>User: ${ticket.user_id || 'Guest'}</h4>
+                        <h4>User: ${displayName}</h4>
                         <span>Ticket ${ticket.ticket_id} • ${ticket.issue_text}</span>
                     </div>
                 </div>
-                ${isOpen ? `<button class="resolve-btn" id="resolveBtn" data-id="${ticket.id}">Resolve Ticket</button>` : `<span style="color:#10b981; font-weight:600;"><i data-lucide="check-circle" style="vertical-align: middle;"></i> Resolved</span>`}
+                <div>
+                    ${isOpen ? `<button class="resolve-btn" id="resolveBtn" data-id="${ticket.id}">Resolve Ticket</button>` : resolvedHtml}
+                </div>
             </div>
             <div class="chat-messages" id="chatMessagesContainer" style="padding: 20px; overflow-y: auto; flex: 1; display: flex; flex-direction: column;">
                 <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 0.85rem;">
