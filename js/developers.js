@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
             closeAddModal();
             loadDevelopers();
         } catch (error) {
-            alert('Error saving developer. Make sure you are logged in as admin.');
+            alert('Error saving developer: ' + error.message + '\n\nNote: Make sure your new backend code is deployed to https://backend.househunt.live!');
             console.error(error);
         } finally {
             btn.textContent = oldText;
