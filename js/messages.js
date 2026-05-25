@@ -67,15 +67,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                     </div>
                     <div>
                         <h4>User: ${ticket.user_id || 'Guest'}</h4>
-                        <span>Ticket ${ticket.ticket_id} • Status: ${ticket.status.toUpperCase()}</span>
+                        <span>Ticket ${ticket.ticket_id} • ${ticket.issue_text}</span>
                     </div>
                 </div>
                 ${isOpen ? `<button class="resolve-btn" id="resolveBtn" data-id="${ticket.id}">Resolve Ticket</button>` : `<span style="color:#10b981; font-weight:600;"><i data-lucide="check-circle" style="vertical-align: middle;"></i> Resolved</span>`}
             </div>
             <div class="chat-messages">
-                <div class="msg received">${ticket.issue_text}</div>
                 <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 0.85rem;">
-                    <em>User submitted this issue on ${new Date(ticket.created_at).toLocaleString()}</em><br>
+                    <em>User submitted an issue regarding <b>${ticket.issue_text}</b> on ${new Date(ticket.created_at).toLocaleString()}</em><br>
                     <em>(Read-only view)</em>
                 </div>
             </div>
