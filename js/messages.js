@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     let allTickets = [];
     let currentTicketId = null;
+    let chatInterval = null;
 
     async function loadTickets() {
         try {
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function renderChatArea(ticket) {
+        if (chatInterval) clearInterval(chatInterval);
         const isOpen = ticket.status !== 'resolved';
         
         chatViewport.innerHTML = `
@@ -72,15 +74,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
                 ${isOpen ? `<button class="resolve-btn" id="resolveBtn" data-id="${ticket.id}">Resolve Ticket</button>` : `<span style="color:#10b981; font-weight:600;"><i data-lucide="check-circle" style="vertical-align: middle;"></i> Resolved</span>`}
             </div>
-            <div class="chat-messages">
+            <div class="chat-messages" id="chatMessagesContainer" style="padding: 20px; overflow-y: auto; flex: 1; display: flex; flex-direction: column;">
                 <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 0.85rem;">
                     <em>User submitted an issue regarding <b>${ticket.issue_text}</b> on ${new Date(ticket.created_at).toLocaleString()}</em><br>
-                    <em>(Read-only view)</em>
                 </div>
             </div>
-            <div class="chat-input" style="opacity: 0.5; pointer-events: none;">
-                <input type="text" placeholder="Live chat responses not yet supported...">
-                <button class="send-btn" disabled><i data-lucide="send"></i></button>
+            <div class="chat-input" ${!isOpen ? 'style="opacity: 0.5; pointer-events: none;"' : ''}>
+                <input type="text" id="chatInput" placeholder="${isOpen ? 'Type a message...' : 'Ticket resolved...'}" ${!isOpen ? 'disabled' : ''}>
+                <button class="send-btn" id="sendBtn" ${!isOpen ? 'disabled' : ''}><i data-lucide="send"></i></button>
             </div>
         `;
         
@@ -96,7 +97,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 try {
                     await fetch(`${BACKEND_URL}/api/admin/tickets/${ticket.id}`, {
                         method: 'PATCH',
-                        headers: { 'Content-Type': 'application/json' },
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'x-admin-token': 'Aarambhindia-Secret'
+                        },
                         body: JSON.stringify({ status: 'resolved' })
                     });
                     
@@ -111,6 +115,77 @@ document.addEventListener('DOMContentLoaded', async () => {
                     btn.textContent = "Resolve Ticket";
                 }
             });
+        }
+
+        // Live Chat Logic
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const chatContainer = document.getElementById('chatMessagesContainer');
+
+        async function fetchMessages() {
+            try {
+                const res = await fetch(`${BACKEND_URL}/api/tickets/${ticket.id}/messages`);
+                const msgs = await res.json();
+                
+                let html = `
+                    <div style="text-align: center; margin-bottom: 20px; color: #9ca3af; font-size: 0.85rem;">
+                        <em>User submitted an issue regarding <b>${ticket.issue_text}</b> on ${new Date(ticket.created_at).toLocaleString()}</em>
+                    </div>
+                `;
+                msgs.forEach(m => {
+                    if (m.sender_role === 'admin') {
+                        html += `<div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+                                    <div style="background:#0066ff; color:white; padding:10px 15px; border-radius:15px 15px 0 15px; max-width:70%; font-size: 0.95rem;">${m.message}</div>
+                                 </div>`;
+                    } else {
+                        html += `<div style="display:flex; justify-content:flex-start; margin-bottom:10px;">
+                                    <div style="background:#f1f5f9; color:#333; padding:10px 15px; border-radius:15px 15px 15px 0; max-width:70%; font-size: 0.95rem;">${m.message}</div>
+                                 </div>`;
+                    }
+                });
+                chatContainer.innerHTML = html;
+            } catch(err) {
+                console.error("Error fetching messages", err);
+            }
+        }
+
+        async function sendMessage() {
+            const text = chatInput.value.trim();
+            if(!text) return;
+            
+            chatInput.value = '';
+            chatInput.disabled = true;
+            sendBtn.disabled = true;
+
+            try {
+                await fetch(`${BACKEND_URL}/api/tickets/${ticket.id}/messages`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ sender_role: 'admin', message: text })
+                });
+                await fetchMessages();
+                chatContainer.scrollTop = chatContainer.scrollHeight;
+            } catch(err) {
+                console.error("Send error", err);
+            } finally {
+                chatInput.disabled = false;
+                sendBtn.disabled = false;
+                chatInput.focus();
+            }
+        }
+
+        if (sendBtn) {
+            sendBtn.addEventListener('click', sendMessage);
+            chatInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+        }
+
+        if (isOpen) {
+            fetchMessages();
+            chatInterval = setInterval(fetchMessages, 2000);
+        } else {
+            fetchMessages(); // fetch once if closed
         }
     }
 
