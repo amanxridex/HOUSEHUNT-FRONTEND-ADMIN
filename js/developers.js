@@ -74,20 +74,18 @@ async function loadDevelopers() {
             
             tr.innerHTML = `
                 <td>
-                    <div class="dev-name-cell">
-                        <div class="dev-logo-preview">${dev.short_code}</div>
+                    <div class="dev-name-cell" style="display: flex; align-items: center; gap: 10px;">
+                        <div class="dev-logo-preview" style="display: inline-flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: #f3f4f6; color: #0066ff; font-weight: 700; font-size: 0.8rem; border-radius: 10px;">${dev.short_code}</div>
                         <span>${dev.name}</span>
                     </div>
                 </td>
                 <td style="font-weight: bold; color: #64748b;">${dev.short_code}</td>
                 <td>${dev.link ? `<a href="${dev.link}" target="_blank" style="color: #0066ff;">Visit Link</a>` : '<span style="color: #94a3b8;">None</span>'}</td>
                 <td>${dateStr}</td>
-                <td>
-                    <div class="action-buttons">
-                        <button class="action-btn delete" onclick="deleteDeveloper('${dev.id}')" title="Delete Developer">
-                            <i data-lucide="trash-2"></i>
-                        </button>
-                    </div>
+                <td class="actions-td">
+                    <button class="act-btn delete" onclick="deleteDeveloper('${dev.id}')" title="Delete Developer">
+                        <i data-lucide="trash-2"></i>
+                    </button>
                 </td>
             `;
             tbody.appendChild(tr);

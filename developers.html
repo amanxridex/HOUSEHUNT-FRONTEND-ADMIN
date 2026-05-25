@@ -35,46 +35,42 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <header class="top-header">
-                <div class="header-search">
+            <header class="topbar">
+                <div class="search-box">
                     <i data-lucide="search"></i>
                     <input type="text" id="searchInput" placeholder="Search developers...">
                 </div>
-                <div class="header-actions">
-                    <button class="primary-btn" onclick="openAddModal()">
-                        <i data-lucide="plus"></i> Add Developer
-                    </button>
-                    <div class="admin-profile">
-                        <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" alt="Admin">
-                        <span>Admin</span>
-                    </div>
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" alt="Admin">
+                    <div class="admin-info"><strong>Admin</strong><span>Super Admin</span></div>
                 </div>
             </header>
 
-            <div class="dashboard-content">
-                <div class="header-flex">
-                    <h2>Manage Developers</h2>
+            <div class="page-header">
+                <h1>Manage Developers</h1>
+                <div class="header-actions">
+                    <button class="add-btn" onclick="openAddModal()"><i data-lucide="plus"></i> Add Developer</button>
                 </div>
+            </div>
 
-                <div class="data-table-container">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Developer Name</th>
-                                <th>Short Code / Logo</th>
-                                <th>Link</th>
-                                <th>Added On</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="developersTableBody">
-                            <!-- Dynamic rows will be inserted here -->
-                            <tr>
-                                <td colspan="5" style="text-align: center; padding: 40px;">Loading developers...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div class="table-section">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Developer Name</th>
+                            <th>Short Code / Logo</th>
+                            <th>Link</th>
+                            <th>Added On</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="developersTableBody">
+                        <!-- Dynamic rows will be inserted here -->
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px;">Loading developers...</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </main>
     </div>
