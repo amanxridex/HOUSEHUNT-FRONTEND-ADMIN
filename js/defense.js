@@ -17,7 +17,11 @@ async function fetchAndRenderLogs() {
     const BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:5000' : 'https://backend.househunt.live';
     
     try {
-        const response = await fetch(`${BACKEND_URL}/api/admin/defense-logs`);
+        const response = await fetch(`${BACKEND_URL}/api/admin/defense-logs`, {
+            headers: {
+                'x-admin-token': 'Aarambhindia-Secret'
+            }
+        });
         if (!response.ok) throw new Error('Failed to fetch logs');
         
         let logs = await response.json();
