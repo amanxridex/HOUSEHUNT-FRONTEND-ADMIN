@@ -75,14 +75,15 @@
         </main>
     </div>
 
-    <!-- Add Developer Modal -->
+    <!-- Add/Edit Developer Modal -->
     <div class="modal-overlay" id="addDeveloperModal">
         <div class="modal">
             <div class="modal-header">
-                <h2>Add New Developer</h2>
+                <h2 id="modalTitle">Add New Developer</h2>
                 <button class="close-btn" onclick="closeAddModal()"><i data-lucide="x"></i></button>
             </div>
             <form id="addDeveloperForm">
+                <input type="hidden" id="devId">
                 <div class="form-group">
                     <label>Developer Name</label>
                     <input type="text" id="devName" required placeholder="e.g. DLF Properties">
@@ -90,11 +91,19 @@
                 <div class="form-group">
                     <label>Short Code (3-4 Letters)</label>
                     <input type="text" id="devCode" required placeholder="e.g. DLF" maxlength="4" style="text-transform: uppercase;">
-                    <small>Used as the logo avatar on the homepage.</small>
+                    <small>Used as a fallback logo if no image is provided.</small>
                 </div>
                 <div class="form-group">
                     <label>Website Link (Optional)</label>
                     <input type="url" id="devLink" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label>Logo Image (Optional)</label>
+                    <input type="file" id="devLogo" accept="image/*">
+                    <small>Upload a logo image to replace the short code avatar.</small>
+                    <div id="currentLogoPreview" style="margin-top: 10px; display: none;">
+                        <img src="" alt="Current Logo" style="height: 40px; border-radius: 4px; border: 1px solid #ccc;">
+                    </div>
                 </div>
                 <button type="submit" class="submit-btn" id="submitBtn">Save Developer</button>
             </form>
