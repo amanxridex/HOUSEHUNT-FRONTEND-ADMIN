@@ -108,7 +108,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: formData
                 });
                 
-                if (!uploadRes.ok) throw new Error('Failed to upload logo image');
+                if (!uploadRes.ok) {
+                    const errText = await uploadRes.text();
+                    throw new Error('Failed to upload logo image. Backend returned: ' + errText);
+                }
                 const uploadData = await uploadRes.json();
                 if (uploadData.urls && uploadData.urls.length > 0) {
                     logo_url = uploadData.urls[0];
