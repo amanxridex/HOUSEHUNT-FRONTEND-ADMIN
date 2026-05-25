@@ -8,12 +8,15 @@
         window.top.location = window.self.location;
     }
 
-    // 2. Disable Right-Click (Context Menu)
+    // 2. Disable Right-Click (Context Menu) - DISABLED TEMPORARILY
+    /*
     document.addEventListener('contextmenu', function(e) {
         e.preventDefault();
     });
+    */
 
-    // 3. Disable Keyboard Shortcuts (DevTools, View Source, Print, Save)
+    // 3. Disable Keyboard Shortcuts (DevTools, View Source, Print, Save) - DISABLED TEMPORARILY
+    /*
     document.addEventListener('keydown', function(e) {
         // F12
         if (e.key === 'F12' || e.keyCode === 123) {
@@ -41,9 +44,10 @@
             }
         }
     });
+    */
 
-    // 4. DevTools Trap (Recursive Debugger)
-    // If DevTools is forcibly opened, this will freeze the UI thread.
+    // 4. DevTools Trap (Recursive Debugger) - DISABLED TEMPORARILY
+    /*
     setInterval(function() {
         const start = performance.now();
         debugger; // The browser halts here if devtools is open
@@ -51,6 +55,7 @@
         // If execution was paused, we know devtools is open. 
         // We could redirect or clear the DOM, but pausing is highly effective for anti-scraping.
     }, 1000);
+    */
 
     // 5. Prevent Dragging (Images, text)
     document.addEventListener('dragstart', function(e) {
