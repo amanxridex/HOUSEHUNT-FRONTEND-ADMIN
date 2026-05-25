@@ -49,22 +49,28 @@ async function fetchAndRenderLogs() {
         logs.forEach(log => {
             const date = new Date(log.timestamp);
             const timeStr = date.toISOString().replace('T', ' ').substring(0, 19);
+            const isClientCrash = log.method === 'CLIENT_CRASH';
             const isError = log.status >= 400;
-            const color = isError ? '#ef4444' : '#10b981';
-            const statusLabel = isError ? '[ERR]' : '[OK] ';
-
+            const color = isClientCrash ? '#ff0000' : (isError ? '#ef4444' : '#10b981');
+            const statusLabel = isClientCrash ? '[CRASH]' : (isError ? '[ERR]' : '[OK] ');
+            
             const line = document.createElement('div');
             line.style.display = 'flex';
             line.style.gap = '15px';
-            line.style.padding = '2px 0';
+            line.style.padding = '4px 0';
             line.style.borderBottom = '1px dashed #333';
+            if (isClientCrash) {
+                line.style.background = 'rgba(255, 0, 0, 0.1)';
+            }
             
+            const endpointStr = isClientCrash ? `${log.endpoint} <br><span style="color: #f87171; font-size: 0.8rem;">➥ ${log.error_details || 'Unknown Error'}</span>` : log.endpoint;
+
             line.innerHTML = `
                 <span style="color: #6b7280; min-width: 170px;">${timeStr}</span>
-                <span style="color: ${color}; font-weight: bold; min-width: 50px;">${statusLabel}</span>
+                <span style="color: ${color}; font-weight: bold; min-width: 70px;">${statusLabel}</span>
                 <span style="color: #fbbf24; min-width: 40px;">${log.status}</span>
-                <span style="color: #60a5fa; min-width: 60px;">${log.method}</span>
-                <span style="color: #e5e7eb; flex: 1; word-break: break-all;">${log.endpoint}</span>
+                <span style="color: ${isClientCrash ? '#ff0000' : '#60a5fa'}; min-width: 90px; font-weight: ${isClientCrash ? 'bold' : 'normal'};">${log.method}</span>
+                <span style="color: #e5e7eb; flex: 1; word-break: break-all;">${endpointStr}</span>
                 <span style="color: #9ca3af; min-width: 120px; text-align: right;">${log.ip_address}</span>
                 <span style="color: #4b5563; min-width: 60px; text-align: right;">${log.duration}ms</span>
             `;
