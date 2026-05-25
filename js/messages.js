@@ -1,0 +1,119 @@
+document.addEventListener('DOMContentLoaded', async () => {
+    const BACKEND_URL = 'https://backend.househunt.live';
+    const ticketListEl = document.getElementById('ticketList');
+    const chatViewport = document.getElementById('chatViewport');
+    
+    let allTickets = [];
+    let currentTicketId = null;
+
+    async function loadTickets() {
+        try {
+            const res = await fetch(`${BACKEND_URL}/api/admin/tickets`);
+            allTickets = await res.json();
+            renderTicketList();
+        } catch (err) {
+            console.error("Failed to load tickets", err);
+            ticketListEl.innerHTML += `<p style="padding: 20px; color: red;">Error loading tickets.</p>`;
+        }
+    }
+
+    function renderTicketList() {
+        // Keep the header
+        ticketListEl.innerHTML = `
+            <div class="inbox-header">
+                <h2>Support Tickets</h2>
+                <i data-lucide="edit"></i>
+            </div>
+        `;
+
+        if (allTickets.length === 0) {
+            ticketListEl.innerHTML += `<p style="padding: 20px; text-align: center; color: #666;">No tickets found.</p>`;
+        }
+
+        allTickets.forEach(ticket => {
+            const item = document.createElement('div');
+            item.className = `ticket-item ${ticket.id === currentTicketId ? 'active' : ''}`;
+            
+            const isOpen = ticket.status !== 'resolved';
+            
+            item.innerHTML = `
+                <div class="ticket-info">
+                    <h4 style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 180px;">${ticket.issue_text}</h4>
+                    <p>User: ${ticket.user_id ? ticket.user_id.substring(0,6) + '...' : 'Guest'} • ${ticket.ticket_id}</p>
+                </div>
+                <span class="ticket-status ${isOpen ? 'open' : 'closed'}"></span>
+            `;
+            
+            item.addEventListener('click', () => {
+                currentTicketId = ticket.id;
+                renderTicketList(); // Re-render to update active class
+                renderChatArea(ticket);
+            });
+            
+            ticketListEl.appendChild(item);
+        });
+        
+        lucide.createIcons();
+    }
+
+    function renderChatArea(ticket) {
+        const isOpen = ticket.status !== 'resolved';
+        
+        chatViewport.innerHTML = `
+            <div class="chat-header">
+                <div class="user-meta">
+                    <div style="width:40px; height:40px; border-radius:50%; background:#e0e7ff; display:flex; align-items:center; justify-content:center; color:#4f46e5; font-weight:700;">
+                        ${ticket.user_id ? ticket.user_id.substring(0,2).toUpperCase() : 'G'}
+                    </div>
+                    <div>
+                        <h4>User: ${ticket.user_id || 'Guest'}</h4>
+                        <span>Ticket ${ticket.ticket_id} • Status: ${ticket.status.toUpperCase()}</span>
+                    </div>
+                </div>
+                ${isOpen ? `<button class="resolve-btn" id="resolveBtn" data-id="${ticket.id}">Resolve Ticket</button>` : `<span style="color:#10b981; font-weight:600;"><i data-lucide="check-circle" style="vertical-align: middle;"></i> Resolved</span>`}
+            </div>
+            <div class="chat-messages">
+                <div class="msg received">${ticket.issue_text}</div>
+                <div style="text-align: center; margin-top: 20px; color: #9ca3af; font-size: 0.85rem;">
+                    <em>User submitted this issue on ${new Date(ticket.created_at).toLocaleString()}</em><br>
+                    <em>(Read-only view)</em>
+                </div>
+            </div>
+            <div class="chat-input" style="opacity: 0.5; pointer-events: none;">
+                <input type="text" placeholder="Live chat responses not yet supported...">
+                <button class="send-btn" disabled><i data-lucide="send"></i></button>
+            </div>
+        `;
+        
+        lucide.createIcons();
+
+        const resolveBtn = document.getElementById('resolveBtn');
+        if (resolveBtn) {
+            resolveBtn.addEventListener('click', async (e) => {
+                const btn = e.target;
+                btn.disabled = true;
+                btn.textContent = "Resolving...";
+                
+                try {
+                    await fetch(`${BACKEND_URL}/api/admin/tickets/${ticket.id}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: 'resolved' })
+                    });
+                    
+                    // Update local state
+                    ticket.status = 'resolved';
+                    renderTicketList();
+                    renderChatArea(ticket);
+                } catch(err) {
+                    console.error("Error resolving ticket", err);
+                    alert("Failed to resolve ticket.");
+                    btn.disabled = false;
+                    btn.textContent = "Resolve Ticket";
+                }
+            });
+        }
+    }
+
+    loadTickets();
+});

@@ -31,52 +31,26 @@
         <main class="main-content">
             <div class="support-container">
                 <!-- Inbox Sidebar -->
-                <div class="inbox-list">
+                <div class="inbox-list" id="ticketList">
                     <div class="inbox-header">
                         <h2>Support Tickets</h2>
                         <i data-lucide="edit"></i>
                     </div>
-                    <div class="ticket-item active">
-                        <div class="ticket-info">
-                            <h4>Issue with payment</h4>
-                            <p>From: Rahul S. • #TK-102</p>
-                        </div>
-                        <span class="ticket-status open"></span>
-                    </div>
-                    <div class="ticket-item">
-                        <div class="ticket-info">
-                            <h4>Property not listing</h4>
-                            <p>From: Priya K. • #TK-105</p>
-                        </div>
-                        <span class="ticket-status closed"></span>
-                    </div>
+                    <!-- Tickets populated by JS -->
                 </div>
 
                 <!-- Chat Area -->
-                <div class="chat-viewport">
-                    <div class="chat-header">
-                        <div class="user-meta">
-                            <img src="assets/profile.png" alt="User">
-                            <div>
-                                <h4>Rahul Sharma</h4>
-                                <span>Ticket #TK-102 • Payment Issue</span>
-                            </div>
-                        </div>
-                        <button class="resolve-btn">Resolve Ticket</button>
-                    </div>
-                    <div class="chat-messages">
-                        <div class="msg received">Hi, I paid for the premium listing but it's not showing active.</div>
-                        <div class="msg sent">Hello Rahul, let me check the transaction ID for you.</div>
-                    </div>
-                    <div class="chat-input">
-                        <input type="text" placeholder="Type your response here...">
-                        <button class="send-btn"><i data-lucide="send"></i></button>
+                <div class="chat-viewport" id="chatViewport">
+                    <div style="display: flex; height: 100%; align-items: center; justify-content: center; color: #666; flex-direction: column; gap: 10px;">
+                        <i data-lucide="message-square" style="width: 48px; height: 48px; opacity: 0.2;"></i>
+                        <p>Select a ticket to view the issue</p>
                     </div>
                 </div>
             </div>
         </main>
     </div>
 
+    <script src="js/messages.js"></script>
     <script>
         lucide.createIcons();
     </script>
