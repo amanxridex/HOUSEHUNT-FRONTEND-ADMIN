@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name='robots' content='noindex, nofollow, noarchive, nosnippet, notranslate, noimageindex'>
+    <meta name='googlebot' content='noindex, nofollow'>
+    <script src='js/security.js'></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Developers | HouseHunt Admin</title>
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/developers.css">
+    <script src="js/auth.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">House<span>Hunt</span> Admin<span class="logo-subtitle">Owned by Aarambh Realtors</span></div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="properties.html" class="nav-item"><i data-lucide="building"></i> Properties</a>
+                <a href="users.html" class="nav-item"><i data-lucide="users"></i> Users</a>
+                <a href="developers.html" class="nav-item active"><i data-lucide="building-2"></i> Developers</a>
+                <a href="analytics.html" class="nav-item"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i> Support</a>
+                <a href="defense.html" class="nav-item" style="color: #ef4444;"><i data-lucide="shield-alert"></i> Defense</a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="adminLogout()" class="nav-item logout-link" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #ef4444;"><i data-lucide="log-out"></i> Logout</a>
+                <p>© 2026 HouseHunt v1.0</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-header">
+                <div class="header-search">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="searchInput" placeholder="Search developers...">
+                </div>
+                <div class="header-actions">
+                    <button class="primary-btn" onclick="openAddModal()">
+                        <i data-lucide="plus"></i> Add Developer
+                    </button>
+                    <div class="admin-profile">
+                        <img src="https://ui-avatars.com/api/?name=Admin&background=0D8ABC&color=fff" alt="Admin">
+                        <span>Admin</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="header-flex">
+                    <h2>Manage Developers</h2>
+                </div>
+
+                <div class="data-table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Developer Name</th>
+                                <th>Short Code / Logo</th>
+                                <th>Link</th>
+                                <th>Added On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="developersTableBody">
+                            <!-- Dynamic rows will be inserted here -->
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 40px;">Loading developers...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Add Developer Modal -->
+    <div class="modal-overlay" id="addDeveloperModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Add New Developer</h2>
+                <button class="close-btn" onclick="closeAddModal()"><i data-lucide="x"></i></button>
+            </div>
+            <form id="addDeveloperForm">
+                <div class="form-group">
+                    <label>Developer Name</label>
+                    <input type="text" id="devName" required placeholder="e.g. DLF Properties">
+                </div>
+                <div class="form-group">
+                    <label>Short Code (3-4 Letters)</label>
+                    <input type="text" id="devCode" required placeholder="e.g. DLF" maxlength="4" style="text-transform: uppercase;">
+                    <small>Used as the logo avatar on the homepage.</small>
+                </div>
+                <div class="form-group">
+                    <label>Website Link (Optional)</label>
+                    <input type="url" id="devLink" placeholder="https://...">
+                </div>
+                <button type="submit" class="submit-btn" id="submitBtn">Save Developer</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/developers.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
