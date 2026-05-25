@@ -63,4 +63,16 @@
             e.preventDefault();
         }
     });
+
+    // 7. Inject Auth Headers to all backend fetch calls
+    const originalFetch = window.fetch;
+    window.fetch = async function() {
+        let [resource, config] = arguments;
+        if (typeof resource === 'string' && resource.includes('/api/admin/')) {
+            if (!config) config = {};
+            if (!config.headers) config.headers = {};
+            config.headers['x-admin-token'] = 'Aarambhindia-Secret';
+        }
+        return await originalFetch(resource, config);
+    };
 })();

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Defense Dashboard | HouseHunt Admin</title>
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, notranslate, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow">
+    <link rel="stylesheet" href="css/admin.css">
+    <script src="js/security.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .defense-layout {
+            padding: 20px;
+        }
+        .threat-header {
+            background: #111827;
+            color: #ef4444;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            border: 1px solid #374151;
+        }
+        .threat-header h2 {
+            margin: 0;
+            color: #fff;
+        }
+        .threat-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+        }
+        .threat-table th {
+            background: #f3f4f6;
+            padding: 15px;
+            text-align: left;
+            font-size: 0.85rem;
+            color: #4b5563;
+            font-weight: 600;
+        }
+        .threat-table td {
+            padding: 15px;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.9rem;
+            color: #111827;
+        }
+        .badge-blocked {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 4px 8px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .ip-address {
+            font-family: monospace;
+            background: #f3f4f6;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">House<span>Hunt</span> Admin<span class="logo-subtitle">Owned by Aarambh Realtors</span></div>
+            <nav class="nav-menu">
+                <a href="index.html" class="nav-item"><i data-lucide="layout-dashboard"></i> Dashboard</a>
+                <a href="properties.html" class="nav-item"><i data-lucide="building"></i> Properties</a>
+                <a href="users.html" class="nav-item"><i data-lucide="users"></i> Users</a>
+                <a href="analytics.html" class="nav-item"><i data-lucide="bar-chart-3"></i> Analytics</a>
+                <a href="messages.html" class="nav-item"><i data-lucide="message-square"></i> Support</a>
+                <a href="defense.html" class="nav-item active" style="color: #ef4444; background: #fee2e2;"><i data-lucide="shield-alert"></i> Defense</a>
+                <a href="settings.html" class="nav-item"><i data-lucide="settings"></i> Settings</a>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="#" onclick="adminLogout()" class="nav-item logout-link" style="margin-bottom: 10px; display: flex; align-items: center; gap: 8px; font-weight: 700; color: #ef4444;"><i data-lucide="log-out"></i> Logout</a>
+                <p>© 2026 HouseHunt v1.0</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="defense-layout">
+                <div class="threat-header">
+                    <i data-lucide="shield-alert" style="width: 48px; height: 48px;"></i>
+                    <div>
+                        <h2>Security Operations Center</h2>
+                        <p style="margin: 5px 0 0; color: #9ca3af; font-size: 0.9rem;">Monitoring unauthorized access attempts, rate-limit violations, and scraping activity.</p>
+                    </div>
+                </div>
+
+                <table class="threat-table">
+                    <thead>
+                        <tr>
+                            <th>Timestamp (UTC)</th>
+                            <th>IP Address</th>
+                            <th>Target Endpoint</th>
+                            <th>User Agent</th>
+                            <th>Action Taken</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTableBody">
+                        <tr>
+                            <td colspan="5" style="text-align: center; padding: 40px; color: #666;">
+                                <i data-lucide="loader" class="spin" style="margin-bottom: 10px;"></i>
+                                <br>Loading security logs...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="js/defense.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>
