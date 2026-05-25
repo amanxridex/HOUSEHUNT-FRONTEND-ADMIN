@@ -189,5 +189,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    async function pollTickets() {
+        try {
+            const res = await fetch(`${BACKEND_URL}/api/admin/tickets`);
+            const fetchedTickets = await res.json();
+            
+            if (JSON.stringify(fetchedTickets) !== JSON.stringify(allTickets)) {
+                allTickets = fetchedTickets;
+                renderTicketList();
+            }
+        } catch (err) {
+            console.error("Polling tickets error", err);
+        }
+    }
+
     loadTickets();
+    setInterval(pollTickets, 2000);
 });
