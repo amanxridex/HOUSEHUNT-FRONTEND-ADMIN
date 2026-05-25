@@ -54,5 +54,21 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    async function fetchStats() {
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/admin/user-stats`);
+            const stats = await response.json();
+            
+            document.getElementById('stat-total-users').textContent = stats.totalUsers || 0;
+            document.getElementById('stat-new-today').textContent = stats.newToday || 0;
+            document.getElementById('stat-new-7days').textContent = stats.new7Days || 0;
+            document.getElementById('stat-new-30days').textContent = stats.new30Days || 0;
+            document.getElementById('stat-visitors-today').textContent = stats.visitorsToday || 0;
+        } catch (e) {
+            console.error("Error fetching user stats:", e);
+        }
+    }
+
     fetchUsers();
+    fetchStats();
 });

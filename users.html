@@ -10,6 +10,36 @@
     <link rel="stylesheet" href="css/admin.css">
     <script src="js/auth.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .stat-card-title {
+            font-size: 0.9rem;
+            color: #6b7280;
+            font-weight: 600;
+        }
+        .stat-card-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #111827;
+        }
+        .stats-row-2 {
+            grid-template-columns: 1fr;
+        }
+    </style>
 </head>
 <body>
     <div class="admin-layout">
@@ -48,6 +78,32 @@
                 <h1>User Management</h1>
                 <div class="header-actions">
                     <button class="add-btn"><i data-lucide="user-plus"></i> Invite Admin</button>
+                </div>
+            </div>
+
+            <!-- Stats Section -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-card-title">Total Users</span>
+                    <span class="stat-card-value" id="stat-total-users">-</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-card-title">New Users (Today)</span>
+                    <span class="stat-card-value" id="stat-new-today">-</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-card-title">New Users (7 Days)</span>
+                    <span class="stat-card-value" id="stat-new-7days">-</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-card-title">New Users (30 Days)</span>
+                    <span class="stat-card-value" id="stat-new-30days">-</span>
+                </div>
+            </div>
+            <div class="stats-grid stats-row-2">
+                <div class="stat-card">
+                    <span class="stat-card-title">Total Visitors (Today)</span>
+                    <span class="stat-card-value" id="stat-visitors-today" style="color: #0066ff;">-</span>
                 </div>
             </div>
 
