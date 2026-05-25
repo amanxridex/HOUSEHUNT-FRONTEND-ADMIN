@@ -29,6 +29,30 @@ document.addEventListener('DOMContentLoaded', () => {
             updateDropZoneText();
         }
     });
+
+    // Add paste support
+    document.addEventListener('paste', (e) => {
+        // Only trigger if modal is open
+        if (!document.getElementById('addDeveloperModal').classList.contains('active')) return;
+        
+        const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+        for (let index in items) {
+            const item = items[index];
+            if (item.kind === 'file' && item.type.startsWith('image/')) {
+                const blob = item.getAsFile();
+                
+                // Create a DataTransfer to simulate file input change
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(blob);
+                fileInput.files = dataTransfer.files;
+                
+                updateDropZoneText();
+                e.preventDefault();
+                break;
+            }
+        }
+    });
+
     
     fileInput.addEventListener('change', updateDropZoneText);
     
@@ -47,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             reader.readAsDataURL(fileInput.files[0]);
         } else {
-            dropText.textContent = 'Drag & Drop logo here or click to browse';
+            dropText.textContent = 'Drag, Drop, Paste (Ctrl+V) logo here or click to browse';
             dropText.style.color = '';
             dropText.style.fontWeight = '';
         }
