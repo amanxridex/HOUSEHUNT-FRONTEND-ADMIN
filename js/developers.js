@@ -6,6 +6,54 @@ let allDevelopers = [];
 document.addEventListener('DOMContentLoaded', () => {
     loadDevelopers();
 
+    const dropZone = document.getElementById('dropZone');
+    const fileInput = document.getElementById('devLogo');
+    const dropText = document.getElementById('dropZoneText');
+    
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+    
+    dropZone.addEventListener('dragleave', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+    });
+    
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        
+        if (e.dataTransfer.files.length > 0) {
+            fileInput.files = e.dataTransfer.files;
+            updateDropZoneText();
+        }
+    });
+    
+    fileInput.addEventListener('change', updateDropZoneText);
+    
+    function updateDropZoneText() {
+        if (fileInput.files.length > 0) {
+            dropText.textContent = fileInput.files[0].name;
+            dropText.style.color = '#0066ff';
+            dropText.style.fontWeight = '600';
+            
+            // Preview it instantly
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const preview = document.getElementById('currentLogoPreview');
+                preview.style.display = 'flex';
+                preview.querySelector('img').src = e.target.result;
+            }
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            dropText.textContent = 'Drag & Drop logo here or click to browse';
+            dropText.style.color = '';
+            dropText.style.fontWeight = '';
+        }
+    }
+
+
     const form = document.getElementById('addDeveloperForm');
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -188,4 +236,26 @@ function editDeveloper(id) {
 function closeAddModal() {
     document.getElementById('addDeveloperModal').classList.remove('active');
     document.getElementById('addDeveloperForm').reset();
+}
+
+
+function removeLogo() {
+    document.getElementById('devLogo').value = '';
+    
+    const devId = document.getElementById('devId').value;
+    if (devId) {
+        const existingDev = allDevelopers.find(d => d.id === devId);
+        if (existingDev) {
+            existingDev.logo_url = null; // Remove it from memory so save doesn't use it
+        }
+    }
+    
+    const preview = document.getElementById('currentLogoPreview');
+    preview.style.display = 'none';
+    preview.querySelector('img').src = '';
+    
+    const dropText = document.getElementById('dropZoneText');
+    dropText.textContent = 'Drag & Drop logo here or click to browse';
+    dropText.style.color = '';
+    dropText.style.fontWeight = '';
 }

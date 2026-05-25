@@ -93,3 +93,28 @@
     display: flex;
     align-items: center;
 }
+
+.drop-zone {
+    width: 100%;
+    padding: 30px 20px;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    background: #f9fafb;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    color: #6b7280;
+}
+.drop-zone:hover, .drop-zone.dragover {
+    border-color: #0066ff;
+    background: #eff6ff;
+    color: #0066ff;
+}
+.drop-zone i {
+    width: 24px;
+    height: 24px;
+}
