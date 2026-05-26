@@ -1,3 +1,6 @@
+document.addEventListener('DOMContentLoaded', async () => {
+    const BACKEND_URL = 'https://backend.househunt.live';
+    const propertyTableBody = document.getElementById('propertyTableBody');
     let currentProperties = [];
 
     async function fetchProperties() {
@@ -74,7 +77,7 @@
         const infoFields = [
             { label: 'Title', value: prop.title },
             { label: 'Type', value: prop.property_type },
-            { label: 'Price', value: `₹ ${Number(prop.price).toLocaleString('en-IN')}` },
+            { label: 'Price', value: \`₹ \${Number(prop.price).toLocaleString('en-IN')}\` },
             { label: 'Location', value: prop.location_text || prop.city },
             { label: 'Owner', value: prop.owner_name },
             { label: 'Description', value: prop.description, full: true }
