@@ -68,14 +68,14 @@
         <h2>Welcome Back</h2>
         <p>Please enter admin credentials</p>
 
-        <form id="loginForm">
+        <form id="loginForm" action="javascript:void(0);">
             <div class="form-group">
                 <label>Username</label>
-                <input type="text" id="username" placeholder="Enter username" required>
+                <input type="text" id="username" placeholder="Enter username" autocomplete="off" required>
             </div>
             <div class="form-group">
                 <label>Password</label>
-                <input type="password" id="password" placeholder="••••••••" required>
+                <input type="text" id="password" placeholder="••••••••" style="-webkit-text-security: disc; text-security: disc;" autocomplete="off" required>
             </div>
             <button type="submit" class="login-btn">Secure Login</button>
             <p id="error" class="error-msg">Invalid username or password</p>
